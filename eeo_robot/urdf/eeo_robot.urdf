@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<robot name="eeo_robot">
+
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+
+  <!--BASE-->
+  <link name="base_link">
+    <visual>
+      <geometry><box size="0.16 0.16 0.2"/></geometry>
+      <material name="white"/>
+      <origin xyz="0 0 0.1"/>
+    </visual>
+  </link>
+
+  <!--J1-->
+  <link name="J1">
+    <visual>
+      <geometry><box size="0.145 0.145 0.1"/></geometry>
+      <material name="blue"/>
+      <origin xyz="0 0 0.05"/>
+    </visual>
+  </link>
+
+  <joint name="base_J1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="J1"/>
+    <origin xyz="0 0 0.2"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+  
+  <!--J2-->
+  <link name="J2">
+    <visual>
+      <geometry><box size="0.102 0.1 0.2"/></geometry>
+      <material name="white"/>
+      <origin xyz="0 0 0.1"/>
+    </visual>
+  </link>
+
+  <joint name="base_J2" type="revolute">
+    <axis xyz="0 1 0"/>
+    <parent link="J1"/>
+    <child link="J2"/>
+    <origin xyz="0 0 0.1"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <!--J3-->
+  <link name="J3">
+    <visual>
+      <geometry><box size="0.159 0.1 0.1"/></geometry>
+      <material name="blue"/>
+      <origin xyz="0.03 0 0.05"/>
+    </visual>
+  </link>
+
+  <joint name="base_J3" type="revolute">
+    <axis xyz="0 1 0"/>
+    <parent link="J2"/>
+    <child link="J3"/>
+    <origin xyz="0 0 0.2"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <!--J4-->
+  <link name="J4">
+    <visual>
+      <geometry><box size="0.1 0.1 0.17"/></geometry>
+      <material name="white"/>
+      <origin xyz="0 0 0.085"/>
+    </visual>
+  </link>
+
+  <joint name="base_J4" type="revolute">
+    <axis xyz="1 0 0" />
+    <parent link="J3"/>
+    <child link="J4"/>
+    <origin xyz="0.08 0 0.05"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <!--J5-->
+  <link name="J5">
+    <visual>
+      <geometry><box size="0.07 0.07 0.1"/></geometry>
+      <material name="blue"/>
+      <origin xyz="0 0 0.05"/>
+    </visual>
+  </link>
+
+  <joint name="base_J5" type="revolute">
+    <axis xyz="0 1 0"/>
+    <parent link="J4"/>
+    <child link="J5"/>
+    <origin xyz="0 0 0.17"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+
+  <!--J6-->
+  <link name="J6">
+    <visual>
+      <geometry><box size="0.05 0.05 0.05"/></geometry>
+      <material name="white"/>
+      <origin xyz="0 0 0.025"/>
+    </visual>
+  </link>
+
+  <joint name="base_J6" type="revolute">
+    <axis xyz="0 0 1"/>
+    <parent link="J5"/>
+    <child link="J6"/>
+    <origin xyz="0 0 0.1"/>
+    <limit lower="-3.14" upper="3.14" effort="10.0" velocity="1.0"/>
+  </joint>
+  
+  <!--TOOL-->
+  <link name="Tool">
+    <visual>
+      <geometry>
+        <cylinder radius="0.005" length="{L_VALUE}"/>
+      </geometry>
+      <origin xyz="0 0 {L_HALF}"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <joint name="base_tool" type="fixed">
+    <parent link="J6"/>
+    <child link="Tool"/>
+    <origin xyz="0.025 0 0.025" rpy="0 1.57 0"/>
+  </joint>
+  
+</robot>
+
